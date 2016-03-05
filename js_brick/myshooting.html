@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>자바스크립트 실습-벽돌깨기 게임</title>
+		<style>
+			* { padding: 0; margin: 0; }
+			canvas { background: #eee; display: block; margin: 0 auto; }
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas" width="480" height="320"></canvas>
+		<script>
+			var canvas = document.getElementById('myCanvas');
+			var ctx = canvas.getContext('2d');
+			var x = canvas.width / 2 + 120;
+			var y = canvas.height / 2;
+			var dx = 2;
+			var dy = -2;
+			var ballRadius = 10;
+			var shipWidth = 50;
+			var shipHeight = 20;
+			var upPressed = false;
+			var downPressed = false;
+			var myX = 20;
+			var myY = canvas.height - 50;
+
+			document.addEventListener("keydown", keyDownHandler, false);
+			document.addEventListener("keyup", keyUpHandler, false);
+
+			function keyDownHandler(e) {
+				if(e.keyCode == 38) {
+					upPressed = true;
+				} else if (e.keyCode == 40) {
+					downPressed = true;
+				}
+				//console.log("keyDown, right:" + rightPressed + ", left:" + leftPressed);
+			}
+
+			function keyUpHandler(e) {
+				if(e.keyCode == 38) {
+					upPressed = false;
+				} else if (e.keyCode == 40) {
+					downPressed = false;
+				}
+				//console.log("keyUp, right:" + rightPressed + ", left:" + leftPressed);
+			}
+			function draw() {
+				//console.log("draw function occurred");
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				drawEnemy();
+				drawMyShip();
+				//x += dx;
+				y += dy;
+
+				/*if( x > canvas.width || x < 0 ) {
+					dx = -dx;
+				}*/
+				if( y > canvas.height || y < 0 ) {
+					dy = -dy;
+				}
+			}
+
+			function drawMyShip() {
+				if( upPressed == true ) {
+					myY -= 7;
+				}
+
+				if( downPressed == true ) {
+					myY += 7;
+				}
+
+				ctx.beginPath();
+				//ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+				ctx.rect(myX, myY, shipWidth, shipHeight);
+				ctx.fillStyle = "#FF0000";
+				ctx.fill();
+				ctx.closePath();
+			}
+
+			function drawEnemy() {
+				ctx.beginPath();
+				//ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+				ctx.rect(x, y, shipWidth, shipHeight);
+				ctx.fillStyle = "#0095DD";
+				ctx.fill();
+				ctx.closePath();
+			}
+
+			setInterval(draw, 10);
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>자바스크립트 실습-벽돌깨기 게임</title>
+		<style>
+			* { padding: 0; margin: 0; }
+			canvas { background: #eee; display: block; margin: 0 auto; }
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas" width="480" height="320"></canvas>
+		<script>
+			var canvas = document.getElementById('myCanvas');
+			var ctx = canvas.getContext('2d');
+			var r_width = 50;
+			var r_height = 50;
+			var x = (canvas.width-r_width) / 2;
+			var y = (canvas.height-r_height) / 2;
+			console.log('x:' + x + ', y:' + y);
+
+			ctx.beginPath();
+			ctx.rect( x, y, 50, 50);
+			ctx.fillStyle = "#FF0000";
+			ctx.fill();
+			ctx.closePath();
+		</script>
+	</body>
+</html>
